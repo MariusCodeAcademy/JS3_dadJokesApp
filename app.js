@@ -1,7 +1,7 @@
 "use strict"; // here we go again
 
-const dummyJokeLine = "How do you make holy water?";
-const dummyJokePunch = "You boil the hell out of it";
+const dummyJokeLine = "init sentence?";
+const dummyJokePunch = "init punchline";
 
 // 1 susikurti html musu app
 
@@ -26,7 +26,7 @@ function punchLineHandler() {
 }
 // 5 paspaudus mygtuka "Next Joke" is naujo matosi tik klausiamasis sakinys;
 function nextJokeHandler() {
-  // loadNextJoke()
+  loadNextJoke();
   hidePunchLine();
 }
 
@@ -39,15 +39,35 @@ function hidePunchLine() {
 
 function init() {
   loadFirstJoke();
-  el.sentence.innerHTML = dummyJokeLine;
-  el.punchline.innerHTML = dummyJokePunch;
 }
 
 init();
 
 function loadFirstJoke() {
-  fetch("https://us-central1-dadsofunny.cloudfunctions.net/DadJokes/random/jokes")
+  //   fetch("https://us-central1-dadsofunny.cloudfunctions.net/DadJokes/random/jokes")
+  fetch("./dummyJoke.json")
     .then((response) => response.json())
-    .then((data) => console.log(data))
+    .then((data) => {
+      // cia mes jau gaunam joke ir galim panaudoti atvaizdavimui
+      console.log(data);
+      fillJokesData(data);
+    })
     .catch((err) => console.warn(err));
+}
+function loadNextJoke() {
+  //   fetch("https://us-central1-dadsofunny.cloudfunctions.net/DadJokes/random/jokes")
+  fetch("./nextdummyJoke.json")
+    .then((response) => response.json())
+    .then((data) => {
+      // cia mes jau gaunam joke ir galim panaudoti atvaizdavimui
+      console.log(data);
+      fillJokesData(data);
+    })
+    .catch((err) => console.warn(err));
+}
+
+function fillJokesData(joke) {
+  el.sentence.innerHTML = joke.setup;
+  el.punchline.innerHTML = joke.punchline;
+  el.cat.innerHTML = joke.type;
 }
