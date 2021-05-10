@@ -26,7 +26,7 @@ function punchLineHandler() {
 }
 // 5 paspaudus mygtuka "Next Joke" is naujo matosi tik klausiamasis sakinys;
 function nextJokeHandler() {
-  loadNextJoke();
+  loadJoke();
   hidePunchLine();
 }
 
@@ -38,19 +38,19 @@ function hidePunchLine() {
 }
 
 function init() {
-  loadFirstJoke();
+  loadJoke();
 }
 
 init();
 
-function loadFirstJoke() {
-  //   fetch("https://us-central1-dadsofunny.cloudfunctions.net/DadJokes/random/jokes")
-  fetch("./dummyJoke.json")
+function loadJoke() {
+  fetch("https://us-central1-dadsofunny.cloudfunctions.net/DadJokes/random/type/programming")
+    //   fetch("./dummyJoke.json")
     .then((response) => response.json())
     .then((data) => {
       // cia mes jau gaunam joke ir galim panaudoti atvaizdavimui
-      console.log(data);
-      fillJokesData(data);
+      console.log(data[0]);
+      fillJokesData(data[0]);
     })
     .catch((err) => console.warn(err));
 }
