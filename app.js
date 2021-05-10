@@ -15,7 +15,8 @@ const el = {
   punchBtn: document.getElementById("punch"),
   nextJoke: document.getElementById("nextJoke"),
 };
-
+// 4 paadarom kad uzkrovus psl mes matom savo klausima ir mygtukus
+// paspaudus mygutka "Punch" pasirodo buves pasleptas punchline sakinys
 el.punchBtn.addEventListener("click", punchLineHandler);
 el.nextJoke.addEventListener("click", nextJokeHandler);
 
@@ -23,7 +24,7 @@ function punchLineHandler() {
   console.log("punch was pressed");
   showPunchLine();
 }
-
+// 5 paspaudus mygtuka "Next Joke" is naujo matosi tik klausiamasis sakinys;
 function nextJokeHandler() {
   // loadNextJoke()
   hidePunchLine();
@@ -37,13 +38,16 @@ function hidePunchLine() {
 }
 
 function init() {
+  loadFirstJoke();
   el.sentence.innerHTML = dummyJokeLine;
   el.punchline.innerHTML = dummyJokePunch;
 }
 
 init();
 
-// 4 paadarom kad uzkrovus psl mes matom savo klausima ir mygtukus
-// paspaudus mygutka "Punch" pasirodo buves pasleptas punchline sakinys
-
-// 5 paspaudus mygtuka "Next Joke" is naujo matosi tik klausiamasis sakinys;
+function loadFirstJoke() {
+  fetch("https://us-central1-dadsofunny.cloudfunctions.net/DadJokes/random/jokes")
+    .then((response) => response.json())
+    .then((data) => console.log(data))
+    .catch((err) => console.warn(err));
+}
